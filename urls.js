@@ -36,7 +36,7 @@ var fs = require("fs"),
       writableStream = fs.createWriteStream("urls.csv");
 
   writableStream.on("finish", function(){
-    console.log("Done writing csv!");
+    console.log("Done writing csv! Now `npm run capture` to get screenshots.");
   });
   
   csvStream.pipe(writableStream);
