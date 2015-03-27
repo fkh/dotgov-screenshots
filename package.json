@@ -7,7 +7,8 @@
     "capture": "time node capture.js",
     "palette": "time node palette.js",
     "clean": "rm -f screenshots/*.png",
-    "start": "http-server ."
+    "start": "http-server .",
+    "urls": "time node urls.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "colors": "^1.0.3",
-    "fast-csv": "^0.5.4",
+    "fast-csv": "^0.6.0",
     "http-server": "^0.7.4",
     "request": "^2.51.0",
     "screenshot-stream": "^1.2.0"
