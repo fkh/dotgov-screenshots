@@ -19,13 +19,6 @@ var CSV_URL = "urls.csv",
     OUTDIR = "screenshots",
     MAX_PARALLEL = 5;
 
-// CSV reader, writer, and Pageres instance
-//var reader = csv.parse({headers: true}),
-//    input = request(CSV_URL)
-//      .pipe(reader)
-//      .on("data", queue)
-//      .on("end", end),
-
     // reading from a static file instead
     var csv = require("fast-csv");
     csv
@@ -49,7 +42,7 @@ function filter(row) {
 
 function queue(row) {
   var domain = row[DOMAIN_COLUMN].toLowerCase(),
-      project = row[NAME].toLowerCase(),
+      project = row[NAME_COLUMN].toLowerCase(),
       image = path.join(OUTDIR, project) + ".png";
       
   // if we already have 'http', let's not add it again
@@ -58,8 +51,6 @@ function queue(row) {
   else
     row.url = "http://" + domain;
   row.domain = domain; // normalized
-  console.log(domain);
-  console.log(row.url);
   row.image = image;
   if (filter(row)) {
     tasks.push(row);
