@@ -11,20 +11,29 @@ var fs = require("fs"),
     colors = require("colors");
 
 // inputs
-var CSV_URL = "https://gsa.github.io/data/dotgov-domains/2014-12-01-full.csv",
+var CSV_URL = "urls.csv",
     DOMAIN_COLUMN = "Domain Name",
+    NAME_COLUMN = "Project",
     SIZE = "1280x600",
     OPTIONS = {delay: .1},
     OUTDIR = "screenshots",
     MAX_PARALLEL = 5;
 
 // CSV reader, writer, and Pageres instance
-var reader = csv.parse({headers: true}),
-    input = request(CSV_URL)
-      .pipe(reader)
+//var reader = csv.parse({headers: true}),
+//    input = request(CSV_URL)
+//      .pipe(reader)
+//      .on("data", queue)
+//      .on("end", end),
+
+    // reading from a static file instead
+    var csv = require("fast-csv");
+    csv
+      .fromPath(CSV_URL, {headers : true})
       .on("data", queue)
-      .on("end", end),
-    output = fs.createWriteStream("domains.csv"),
+      .on("end", end)
+
+var output = fs.createWriteStream("domains.csv"),
     writer = csv.createWriteStream({headers: true}),
     tasks = [],
     errors = 0;
@@ -35,14 +44,22 @@ writer.pipe(output);
  * XXX remove me
  */
 function filter(row) {
-  return row["Domain Type"] === "Federal Agency";
+  return row;
 }
 
 function queue(row) {
   var domain = row[DOMAIN_COLUMN].toLowerCase(),
-      image = path.join(OUTDIR, domain) + ".png";
-  row.url = "http://" + domain;
+      project = row[NAME].toLowerCase(),
+      image = path.join(OUTDIR, project) + ".png";
+      
+  // if we already have 'http', let's not add it again
+  if (domain.slice(0,4) == 'http')
+    row.url = domain
+  else
+    row.url = "http://" + domain;
   row.domain = domain; // normalized
+  console.log(domain);
+  console.log(row.url);
   row.image = image;
   if (filter(row)) {
     tasks.push(row);
