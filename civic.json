@@ -1,0 +1,24 @@
+{
+    "status": "Alpha",
+    "thumbnailUrl": "",
+     "bornAt": "Forked from shawnbot/dotgov-screenshots",
+    "geography": "NYC",
+    "politicalEntity":"",
+    "type":"Web App",
+    "needs": [
+        {"need": "Node Dev"}
+    ],
+    "categories": [
+        {"category": "History"},
+        {"category": "Documentation"}
+    ],
+    "contact": [
+        {
+          "name": "Frank Hebbert",
+          "email": "frank@hebbert.com",
+          "twitter": "@fkh"
+        }
+      ],
+      "moreInfoLink": "http://opensourceplanning.org/post/114241061346/mommy-what-did-civic-tech-look-like",
+      "displayName": "Civic tech screenshots"
+}
