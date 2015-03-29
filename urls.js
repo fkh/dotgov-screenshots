@@ -1,12 +1,13 @@
 var fs = require("fs"),
-    csv = require("fast-csv");
+    csv = require("fast-csv"),
+    PROJECTS_URL = 'http://projects.betanyc.us/projects';
 
 // fetch the json
  function getJSON(){
      var string = '';
      
      var request = require('request');
-     request('http://projects.betanyc.us/projects')
+     request(PROJECTS_URL)
         .on('data', function(data){
           if (data)
             string += data;
@@ -36,7 +37,7 @@ var fs = require("fs"),
       writableStream = fs.createWriteStream("urls.csv");
 
   writableStream.on("finish", function(){
-    console.log("Done writing csv! Now `npm run capture` to get screenshots.");
+    console.log("Done writing csv! Now `npm run capture` to get screenshots.  ");
   });
   
   csvStream.pipe(writableStream);
